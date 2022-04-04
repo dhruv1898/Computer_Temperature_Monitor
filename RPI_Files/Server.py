@@ -45,7 +45,7 @@ def criticaltemp(robotdata):
     count = 0
     temperature = 0
     for i in range(0,len(comptemp)):
-        if comptemp[i] >= 30:
+        if comptemp[i] >= 80:
             count +=1
         if comptemp[i] >= temperature:
             temperature = comptemp[i]
