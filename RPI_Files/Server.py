@@ -6,7 +6,6 @@ def criticalemail(robot,temperature):
     port = 587  # For starttls
     smtp_server = "smtp.gmail.com"
     sender_email = "sender email address"
-    receiver_email = "receiver email address"
     password = "Type your password and press enter:"
     message = "The robot {robot} has crossed the critical temperature. Current Temperature is {temperature} deg C."
     context = ssl.create_default_context()
@@ -15,7 +14,10 @@ def criticalemail(robot,temperature):
         server.starttls(context=context)
         server.ehlo()  # Can be omitted
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message.format(robot=robot,temperature=temperature))
+        with open("emaildata.csv") as file:
+            reader = csv.reader(file)
+            for email in reader:
+                server.sendmail(sender_email, email, message.format(robot=robot,temperature=temperature))
     return
 
 def criticaltemp(robotdata):
