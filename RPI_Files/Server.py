@@ -61,8 +61,8 @@ def criticaltemp(robotdata):
 if __name__=="__main__":
     #run TCP socket to receive the data from the computers and store it into two different files
     
-    HOST = '192.168.102.137'
-    PORT = 50007#50007
+    HOST = '192.168.102.137' #assign the RPI's IP address
+    PORT = 50007 #you can assign a different port number
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen(10)
