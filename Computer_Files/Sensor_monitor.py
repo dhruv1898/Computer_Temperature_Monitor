@@ -8,6 +8,8 @@ import smtplib
 np.set_printoptions(suppress=True)
 device_name = socket.gethostname()
 
+
+#Assign units to the data from the sensors
 def dataunit(data):
     if "temp" in label:
         unit = u'\N{DEGREE SIGN}'+'C'
@@ -74,8 +76,10 @@ if __name__ == "__main__":
                 i+=1
                 data_string = data_string+' '+str(vals[0])+unit
             data_string = data_string+']'
-        HOST = '192.168.102.137'
-        PORT = 50007
+        
+        #Send data to the server using a TCP socket
+        HOST = '192.168.102.137' #change IP address to the RPI's IP address
+        PORT = 50007 #port number can be changed (optional)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
         print(data_string)
