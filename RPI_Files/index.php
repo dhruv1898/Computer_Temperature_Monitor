@@ -67,11 +67,41 @@ if(isset($_POST['textdata']))
 {
 $data=$_POST['textdata'];
 $fp = fopen('emaildata.csv', 'a');
-
-fwrite($fp, $data ."\n");
-fclose($fp);
+$fpdata = file_get_contents('emaildata.csv');
+$fparray = explode("\n", $fpdata);
+    if(in_array($data,$fparray)) {
+        echo "<p align='center'><font color=red>Already subscribed! Please enter a different Email address.</font></p>";
+    }
+    else {
+        fwrite($fp, $data ."\n");
+        fclose($fp);
+    }
 }
 ?>
+
+
+<form align="center" method="post">
+    To unsubscribe from the mailing list, enter your Email address here:<br>
+    <input type="email" name="unsubdata"><br>
+    <input type="submit" name="submit">
+    
+</form>
+
+<?php
+if(isset($_POST['unsubdata']))
+{
+    $unsub=$_POST['unsubdata'];
+    $ftpdata = file_get_contents('emaildata.csv');
+    $ftparray = explode("\n", $ftpdata);
+    if(in_array($unsub,$ftparray)) {
+        $elementindex = array_search($unsub,$ftparray);
+        array_splice($ftparray,$elementindex,1);
+        $ftparray = implode("\n",$ftparray);
+        $ftpdata = file_put_contents('emaildata.csv',$ftparray);
+    }
+}
+?>
+    
 <h1 align="center"><?php echo "This table shows the on-board sensor data of the connected robots" ?></h1>
 <table align="center" width="850" border="1">
     <thread>
