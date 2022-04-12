@@ -2,13 +2,14 @@ import socket
 import os
 import smtplib, ssl
 
+#To send email to the subscribers
 def criticalemail(robot,temperature):
     port = 587  # For starttls
-    smtp_server = "smtp.gmail.com"
-    sender_email = "sender email address"
-    password = "Type your password and press enter:"
+    smtp_server = "smtp.gmail.com" #change it to the server to be used
+    sender_email = "sender email address" #add the sender's email address
+    password = "Type your password and press enter:" #add password of the sender email address
     message = "The robot {robot} has crossed the critical temperature. Current Temperature is {temperature} deg C."
-    context = ssl.create_default_context()
+    context = ssl.create_default_context() 
     with smtplib.SMTP(smtp_server, port) as server:
         server.ehlo()  # Can be omitted
         server.starttls(context=context)
@@ -20,6 +21,7 @@ def criticalemail(robot,temperature):
                 server.sendmail(sender_email, email, message.format(robot=robot,temperature=temperature))
     return
 
+#monitors whether the processor is reaching the critical temperature or not based on the received data
 def criticaltemp(robotdata):
     
     splitdata = robotdata.split(',')
@@ -57,6 +59,8 @@ def criticaltemp(robotdata):
            
 
 if __name__=="__main__":
+    #run TCP socket to receive the data from the computers and store it into two different files
+    
     HOST = '192.168.102.137'
     PORT = 50007#50007
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -68,12 +72,16 @@ if __name__=="__main__":
         print('Connected by', addr)
         data = conn.recv(4096).decode()
         robotname = data.split('=')
+        
+        #store the data to eb used for the webserver
         datafile = robotname[0]+'.txt'
         filedir = '/home/pi/Desktop/Server/Updatingdata'
         filepath = os.path.join(filedir,datafile)
         a = open(filepath,'w')
         a.write(data)
         a.close()
+        
+        #store the data to be downloaded
         storedata = robotname[0]+'.txt'
         filedir = '/home/pi/Desktop/Server/Loggeddata'
         filepath = os.path.join(filedir,storedata)
@@ -84,9 +92,8 @@ if __name__=="__main__":
         conn.sendall(b'Data received')
         conn.close()
         robot = robotname[0]
-       
-       
         
+        #call the function to check the critical temperature
         if ("amd" in robotname[1]) or ("core" in robotname[1]):
             robotdata =robotname[1]
             criticaltemp(robotdata)
