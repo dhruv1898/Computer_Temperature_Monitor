@@ -160,7 +160,7 @@ for ($i = 1; $i<$nooffiles; $i++){
         $fulldata00 = explode(' ',$fulldata0[1]);
         echo "<button type='button' class='button slide-toggle'>$parts[0]</button>";
         echo "<hr>";
-        echo "<div class='box'>";
+        echo "<div class='box' style='display:none'>";
         echo "<table align='center' width='850' border='1'>";
         echo "<thread>";
             echo "<tr>";
