@@ -77,8 +77,9 @@ if __name__=="__main__":
         datafile = robotname[0]+'.txt'
         filedir = '/home/pi/Desktop/Server/Updatingdata'
         filepath = os.path.join(filedir,datafile)
+        updata = robotname[0]+'('+str(addr[0])+')='+robotname[1]
         a = open(filepath,'w')
-        a.write(data)
+        a.write(updata)
         a.close()
         
         #store the data to be downloaded
