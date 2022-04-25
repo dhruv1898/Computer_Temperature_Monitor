@@ -154,11 +154,12 @@ for ($i = 1; $i<$nooffiles; $i++){
         $line_of_text = fgets($file_handle);
         $line_of_text = str_replace(array('[ ',']'),'',$line_of_text);
         $parts = explode('=,', $line_of_text);
+        $partsip = explode('(',$parts[0]);
         $tempdata = explode(',',$parts[1]);
         $noofdata=count($tempdata);
         $fulldata0 = explode(':',$tempdata[0]);
         $fulldata00 = explode(' ',$fulldata0[1]);
-        echo "<button type='button' class='button slide-toggle'>$parts[0]</button>";
+        echo "<button type='button' class='button slide-toggle'>$partsip[0]</button>";
         echo "<hr>";
         echo "<div class='box' style='display:none'>";
         echo "<table align='center' width='850' border='1'>";
