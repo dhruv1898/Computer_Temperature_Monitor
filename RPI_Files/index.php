@@ -99,7 +99,7 @@
     <script>
         $(document).ready(function(){
             $(".slide-toggle").click(function(){
-                $(".box").slideToggle();
+                $(this).nextAll(".box:first").slideToggle();
             });
         });
     </script>
