@@ -249,10 +249,16 @@ if(isset($_POST['unsubdata']))
 <div align="center" class="dropdown">
   <button onclick="myFunction()" class="dropbtn">Select</button>
   <div id="myDropdown" class="dropdown-content">
-    <a href="/Loggeddata/leela.txt" download="Leela.txt">Leela</a>
-    <a href="/Loggeddata/amy.txt" download="Amy.txt">Amy</a>
-    <a href="/Loggeddata/homer.txt" download="Homer.txt">Homer</a>
-    <a href="/Loggeddata/pr2a.txt" download="Pr2a.txt">Pr2a</a>
+    <?php
+        $logdir='/home/pi/Desktop/Server/Loggeddata/';
+        $logfiles = array_slice(scandir($logdir),2);
+        $nooffiles=count($logfiles);
+        for ($i=0;$i<$nooffiles;$i++){
+        $logdir='/Loggeddata/';
+        $logfilespath = $logdir.$logfiles[$i];
+        echo "<a href=$logfilespath download=$logfiles[$i]>$logfiles[$i]</a>";
+    }
+    ?>
   </div>
 </div>
 <p style = "margin-bottom:5cm;"></p>
