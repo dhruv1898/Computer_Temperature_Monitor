@@ -141,11 +141,15 @@
 <h2 align="center"><?php echo "This table shows the on-board sensor data of the connected robots" ?></h2>
 <div align='center'>
 <?php
+    
+//change the directory here
 $dir = '/home/pi/Desktop/Server/Updatingdata/';
 $files = array_slice(scandir($dir),2);
 $nooffiles = count($files);
 
 for ($i = 1; $i<$nooffiles; $i++){
+    
+    //change the directory here
     $dir = "/home/pi/Desktop/Server/Updatingdata/";
     $filespath = $dir.$files[$i];
     $file_handle = fopen($filespath, "rb");
@@ -210,7 +214,7 @@ if(isset($_POST['textdata']))
 {
 $data=$_POST['textdata'];
 $fp = fopen('emaildata.csv', 'a');
-$fpdata = file_get_contents('emaildata.csv');
+$fpdata = file_get_contents('emaildata.csv'); //change file location here
 $fparray = explode("\n", $fpdata);
     if(in_array($data,$fparray)) {
         echo "<p align='center'><font color=red>Already subscribed! Please enter a different Email address.</font></p>";
@@ -235,7 +239,7 @@ $fparray = explode("\n", $fpdata);
 if(isset($_POST['unsubdata']))
 {
     $unsub=$_POST['unsubdata'];
-    $ftpdata = file_get_contents('emaildata.csv');
+    $ftpdata = file_get_contents('emaildata.csv'); //change file location here
     $ftparray = explode("\n", $ftpdata);
     if(in_array($unsub,$ftparray)) {
         $elementindex = array_search($unsub,$ftparray);
@@ -251,6 +255,8 @@ if(isset($_POST['unsubdata']))
   <button onclick="myFunction()" class="dropbtn">Select</button>
   <div id="myDropdown" class="dropdown-content">
     <?php
+    
+        //change the directory here
         $logdir='/home/pi/Desktop/Server/Loggeddata/';
         $logfiles = array_slice(scandir($logdir),2);
         $nooffiles=count($logfiles);
